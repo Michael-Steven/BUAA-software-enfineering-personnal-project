@@ -41,8 +41,8 @@ Circle::get_circle_line_intersect(Line* line, double distance) {
 	pair<double, double> foot = (line)->get_line_line_intersect(temp);
 	//求直线单位向量
 	pair<double, double> e;
-	e.first = line->get_b() / (line->get_a() * line->get_a() + line->get_b() * line->get_b());
-	e.second = -line->get_a() / (line->get_a() * line->get_a() + line->get_b() * line->get_b());
+	e.first = line->get_b() / sqrt(line->get_a() * line->get_a() + line->get_b() * line->get_b());
+	e.second = -line->get_a() / sqrt(line->get_a() * line->get_a() + line->get_b() * line->get_b());
 	//那一小段的长度
 	double base = sqrt(r * r - distance * distance);
 	//得出两个交点
@@ -106,7 +106,7 @@ void Intersect::add_circle(int x, int y, int r) {
 			+ line_iter->get_b() * new_circle->get_y() + line_iter->get_c())
 			/ sqrt(line_iter->get_a() * line_iter->get_a() + line_iter->get_b() * line_iter->get_b());
 		//相离
-		if (fabs(distance - new_circle->get_r()) > eps) {
+		if (distance - new_circle->get_r() > eps) {
 			continue;
 		}
 		pair<pair<double, double>, pair<double, double>> intersect =
